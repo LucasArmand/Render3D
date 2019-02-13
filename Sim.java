@@ -2,9 +2,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -23,12 +26,18 @@ public class Sim {
 		for(int i = 0; i < x; i++) {
 			for(int j = 0; j < y; j++) {
 				screenSpaceVectors[i][j] = new Vector3(((double)(i) - (double)(x/2))/100, ((double)j-((double)y/2))/100,1);
-				image.setRGB(i,j,Color.BLUE.getRGB());
+				image.setRGB(i,j,Color.blue.getRGB());
 				//System.out.println(screenSpaceVectors[i][j]);
 			}
 		}
 		frame.setSize(800,600);
-		
+		File outputfile = new File("image.jpg");
+		try {
+			ImageIO.write(image, "jpg", outputfile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		canvas.paint(image.getGraphics());
 		
 		frame.add(canvas);
